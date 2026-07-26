@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carla Cairo Fernández — Economista</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream: #FFF7FB;
+    --ink: #1F1230;
+    --ink-soft: #4A3A5C;
+    --fuchsia: #C6178C;
+    --fuchsia-deep: #9C0F6E;
+    --pink: #FF6FB5;
+    --pink-soft: #FFD9EC;
+    --turquoise: #0FB8B0;
+    --turquoise-deep: #0B8F89;
+    --turquoise-soft: #D8FBF7;
+    --line: rgba(31,18,48,0.12);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Space Grotesk', sans-serif;
+    overflow-x: hidden;
+  }
+  ::selection{ background: var(--pink); color: white; }
+
+  h1,h2,h3{ font-family: 'Fraunces', serif; }
+
+  a{ color: inherit; text-decoration: none; }
+
+  .noise{
+    position:fixed; inset:0; pointer-events:none; z-index:1;
+    background-image: radial-gradient(circle at 1px 1px, rgba(31,18,48,0.035) 1px, transparent 0);
+    background-size: 22px 22px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position: fixed; top:0; left:0; right:0; z-index: 50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px 6vw;
+    backdrop-filter: blur(10px);
+    background: rgba(255,247,251,0.75);
+    border-bottom: 1px solid var(--line);
+  }
+  .brand{ font-family:'Fraunces', serif; font-weight:700; font-size: 1.15rem; letter-spacing: -0.01em;}
+  .brand span{ color: var(--fuchsia); }
+  nav ul{ list-style:none; display:flex; gap: 28px; }
+  nav a{ font-size: 0.88rem; font-weight:500; color: var(--ink-soft); position:relative; padding: 4px 0;}
+  nav a:hover{ color: var(--fuchsia); }
+  nav a::after{
+    content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px;
+    background: linear-gradient(90deg, var(--fuchsia), var(--turquoise));
+    transition: width 0.25s ease;
+  }
+  nav a:hover::after{ width:100%; }
+  .nav-toggle{ display:none; }
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    min-height: 100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding: 120px 6vw 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .orb{
+    position:absolute; border-radius:50%; filter: blur(70px); opacity:0.55; z-index:0;
+  }
+  .orb1{ width:420px; height:420px; background: var(--pink); top:-120px; right:-100px; }
+  .orb2{ width:340px; height:340px; background: var(--turquoise); bottom:-140px; left:-80px; }
+  .orb3{ width:220px; height:220px; background: var(--fuchsia); top: 30%; right: 20%; opacity:0.25;}
+
+  .eyebrow{
+    position:relative; z-index:2;
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.14em;
+    text-transform:uppercase; color: var(--fuchsia-deep);
+    border: 1px solid var(--fuchsia); border-radius: 999px;
+    padding: 7px 16px; width:fit-content; margin-bottom: 28px;
+    background: rgba(255,255,255,0.5);
+  }
+  .eyebrow::before{
+    content:''; width:7px; height:7px; border-radius:50%;
+    background: var(--turquoise); box-shadow: 0 0 0 4px var(--turquoise-soft);
+  }
+
+  .hero h1{
+    position:relative; z-index:2;
+    font-size: clamp(2.6rem, 7.2vw, 6.4rem);
+    line-height: 0.98; font-weight:700; letter-spacing:-0.02em;
+    max-width: 16ch;
+  }
+  .hero h1 em{
+    font-style: italic; font-weight:400;
+    background: linear-gradient(100deg, var(--fuchsia) 15%, var(--turquoise) 85%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero .role{
+    position:relative; z-index:2;
+    margin-top: 26px; font-size: clamp(1rem, 1.6vw, 1.25rem);
+    color: var(--ink-soft); max-width: 46ch; font-weight:400;
+  }
+  .hero .role strong{ color: var(--ink); font-weight:600; }
+
+  .hero-cta{
+    position:relative; z-index:2;
+    margin-top: 40px; display:flex; gap:16px; flex-wrap:wrap;
+  }
+  .btn{
+    font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:0.92rem;
+    padding: 14px 26px; border-radius: 12px; border: none; cursor:pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .btn-primary{
+    background: linear-gradient(100deg, var(--fuchsia), var(--fuchsia-deep));
+    color:white; box-shadow: 0 10px 24px -8px rgba(198,23,140,0.55);
+  }
+  .btn-outline{
+    background: transparent; border: 1.5px solid var(--ink); color: var(--ink);
+  }
+  .btn:hover{ transform: translateY(-3px); }
+  .btn-outline:hover{ background: var(--turquoise-soft); border-color: var(--turquoise-deep); }
+
+  /* ---------- TICKER (signature element) ---------- */
+  .ticker-wrap{
+    position:relative; z-index:2; margin-top: 64px;
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    padding: 14px 0; overflow:hidden;
+    background: linear-gradient(90deg, var(--pink-soft), var(--turquoise-soft));
+  }
+  .ticker{
+    display:flex; gap: 48px; width:max-content;
+    animation: scroll 32s linear infinite;
+    font-family:'IBM Plex Mono', monospace; font-size:0.85rem; font-weight:500;
+  }
+  .ticker span{ display:flex; align-items:center; gap:10px; white-space:nowrap; }
+  .ticker .up{ color: var(--turquoise-deep); }
+  .ticker .up::before{ content:'▲'; font-size:0.7em; }
+  .ticker .flat{ color: var(--fuchsia-deep); }
+  .ticker .flat::before{ content:'●'; font-size:0.6em; }
+  @keyframes scroll{
+    0%{ transform: translateX(0); }
+    100%{ transform: translateX(-50%); }
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding: 110px 6vw; position:relative; z-index:2; }
+  .section-head{ margin-bottom: 56px; max-width: 640px; }
+  .section-tag{
+    font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.16em;
+    text-transform:uppercase; color: var(--turquoise-deep); margin-bottom:14px; display:block;
+  }
+  .section-head h2{ font-size: clamp(1.9rem, 3.6vw, 2.8rem); font-weight:600; letter-spacing:-0.01em; }
+
+  .reveal{ opacity:0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  /* ---------- ABOUT ---------- */
+  #about{ background: white; border-radius: 32px; margin: 0 4vw; padding: 100px 6vw; }
+  .about-grid{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items:start; }
+  .about-grid p{ font-size: 1.05rem; line-height:1.75; color: var(--ink-soft); margin-bottom: 18px; }
+  .about-grid p strong{ color: var(--ink); }
+  .fact-card{
+    background: var(--cream); border: 1px solid var(--line); border-radius: 18px;
+    padding: 22px 24px; margin-bottom: 16px;
+  }
+  .fact-card .num{
+    font-family:'Fraunces', serif; font-size: 2.1rem; font-weight:700;
+    background: linear-gradient(100deg, var(--fuchsia), var(--turquoise));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    display:block; line-height:1;
+  }
+  .fact-card .label{ font-size:0.85rem; color: var(--ink-soft); margin-top:6px; display:block; }
+
+  /* ---------- EXPERIENCE (timeline as real chronology) ---------- */
+  .timeline{ position:relative; padding-left: 34px; }
+  .timeline::before{
+    content:''; position:absolute; left:6px; top:6px; bottom:6px; width:2px;
+    background: linear-gradient(180deg, var(--fuchsia), var(--turquoise));
+  }
+  .t-item{ position:relative; padding-bottom: 44px; }
+  .t-item:last-child{ padding-bottom:0; }
+  .t-item::before{
+    content:''; position:absolute; left:-34px; top:4px; width:14px; height:14px; border-radius:50%;
+    background: var(--cream); border: 3px solid var(--fuchsia);
+  }
+  .t-item.active::before{ border-color: var(--turquoise); }
+  .t-item .when{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color: var(--turquoise-deep);
+    letter-spacing:0.06em; text-transform:uppercase;
+  }
+  .t-item h3{ font-size:1.35rem; font-weight:600; margin: 6px 0 8px; }
+  .t-item p{ color: var(--ink-soft); line-height:1.7; max-width: 62ch; }
+
+  /* ---------- SKILLS ---------- */
+  .skill-groups{ display:grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+  .skill-card{
+    background: white; border: 1px solid var(--line); border-radius: 20px; padding: 28px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .skill-card:hover{ transform: translateY(-6px); box-shadow: 0 20px 40px -20px rgba(31,18,48,0.25); }
+  .skill-card h3{
+    font-size:1.05rem; font-weight:600; margin-bottom:16px; display:flex; align-items:center; gap:10px;
+  }
+  .skill-card .dot{ width:10px; height:10px; border-radius:50%; }
+  .skill-card ul{ list-style:none; }
+  .skill-card li{
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:0.92rem; color: var(--ink-soft); padding: 9px 0; border-bottom: 1px dashed var(--line);
+  }
+  .skill-card li:last-child{ border-bottom:none; }
+  .level{
+    font-family:'IBM Plex Mono', monospace; font-size:0.72rem; padding:3px 9px; border-radius:999px;
+  }
+  .level.inter{ background: var(--turquoise-soft); color: var(--turquoise-deep); }
+  .level.basic{ background: var(--pink-soft); color: var(--fuchsia-deep); }
+
+  /* ---------- CERTIFICATIONS ---------- */
+  .cert-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .cert{
+    display:flex; justify-content:space-between; gap: 16px; align-items:flex-start;
+    background: white; border:1px solid var(--line); border-radius:16px; padding:20px 22px;
+  }
+  .cert h4{ font-size:0.98rem; font-weight:600; font-family:'Space Grotesk'; margin-bottom:4px; }
+  .cert p{ font-size:0.82rem; color: var(--ink-soft); }
+  .cert .badge{
+    font-family:'IBM Plex Mono', monospace; font-size:0.68rem; white-space:nowrap;
+    color: var(--fuchsia-deep); border:1px solid var(--fuchsia); border-radius:999px; padding:3px 10px; height:fit-content;
+  }
+
+  /* ---------- OTHER / VOLUNTEER ---------- */
+  .other-grid{ display:grid; grid-template-columns: repeat(2,1fr); gap: 24px; }
+  .other-card{
+    border-radius: 20px; padding: 28px; color: white; position:relative; overflow:hidden;
+  }
+  .other-card.a{ background: linear-gradient(140deg, var(--fuchsia-deep), var(--fuchsia)); }
+  .other-card.b{ background: linear-gradient(140deg, var(--turquoise-deep), var(--turquoise)); }
+  .other-card h3{ font-size:1.2rem; margin-bottom:10px; }
+  .other-card p{ font-size:0.92rem; opacity:0.92; line-height:1.6; }
+
+  /* ---------- CONTACT ---------- */
+  #contact{
+    background: var(--ink); color: white; border-radius: 32px; margin: 0 4vw 40px;
+    text-align:center; padding: 110px 6vw;
+  }
+  #contact .section-tag{ color: var(--turquoise); }
+  #contact h2{ font-size: clamp(2.2rem, 5vw, 3.6rem); max-width: 16ch; margin: 0 auto 20px; }
+  #contact p{ color: rgba(255,255,255,0.7); max-width: 46ch; margin: 0 auto 36px; font-size:1.02rem; }
+  .contact-links{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+  .contact-links a{
+    font-family:'Space Grotesk'; font-weight:600; padding: 14px 28px; border-radius:12px;
+    border: 1.5px solid rgba(255,255,255,0.25); transition: all 0.2s ease;
+  }
+  .contact-links a:hover{ background: white; color: var(--ink); border-color:white; }
+
+  footer{ text-align:center; padding: 30px; font-size:0.8rem; color: var(--ink-soft); }
+
+  @media (max-width: 860px){
+    nav ul{ display:none; }
+    .about-grid, .skill-groups, .cert-grid, .other-grid{ grid-template-columns: 1fr; }
+    #about{ margin: 0 4vw; padding: 60px 6vw; }
+    section{ padding: 70px 6vw; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .ticker{ animation: none; }
+    .reveal{ transition:none; opacity:1; transform:none; }
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<nav>
+  <div class="brand">Carla <span>Cairo</span></div>
+  <ul>
+    <li><a href="#about">Sobre mí</a></li>
+    <li><a href="#experiencia">Experiencia</a></li>
+    <li><a href="#habilidades">Habilidades</a></li>
+    <li><a href="#certificaciones">Certificaciones</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+
+  <span class="eyebrow">Riesgo · Datos · Política económica</span>
+  <h1>Carla Cairo, <em>economía con precisión de mercado</em></h1>
+  <p class="role">Estudiante de <strong>Economía en la Universidad de Lima</strong> (9no ciclo, tercio superior), enfocada en análisis de riesgo, inversión pública e indicadores socioeconómicos. Actualmente en <strong>Ginfotel SRL</strong> como Asistente Administrativa.</p>
+
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="#experiencia">Ver trayectoria</a>
+    <a class="btn btn-outline" href="https://www.linkedin.com/in/carla-cairo-473b42351" target="_blank" rel="noopener">LinkedIn ↗</a>
+  </div>
+
+  <div class="ticker-wrap">
+    <div class="ticker" id="tickerTrack"></div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="about-grid">
+    <div class="reveal">
+      <span class="section-tag">Sobre mí</span>
+      <h2 style="margin-bottom:22px;">De la teoría económica al análisis aplicado</h2>
+      <p>Soy <strong>Carla Elisa Cairo Fernández</strong>, estudiante de Economía en la Universidad de Lima, actualmente en el <strong>9no ciclo</strong> y dentro del tercio superior de mi promoción. Me interesa especialmente el análisis de <strong>riesgo de mercado</strong>, la inversión pública y la construcción de indicadores para investigación económica.</p>
+      <p>Combino esa formación académica con experiencia laboral desde <strong>junio de 2022</strong> en Ginfotel SRL, donde apoyo la gestión administrativa y operativa: organización documentaria, elaboración de reportes, manejo de bases de datos y control de información para la toma de decisiones.</p>
+      <p>Manejo herramientas cuantitativas como <strong>SQL y Python</strong> a nivel intermedio, además de Excel, Power BI y Contabilidad, y sigo certificándome en plataformas de mercado como <strong>Bloomberg</strong> y <strong>LSEG Workspace</strong>.</p>
+    </div>
+    <div class="reveal">
+      <div class="fact-card">
+        <span class="num">9°</span>
+        <span class="label">Ciclo actual — Economía, Universidad de Lima</span>
+      </div>
+      <div class="fact-card">
+        <span class="num">3°</span>
+        <span class="label">Puesto — Torneo de Suficiencia Económica ULima</span>
+      </div>
+      <div class="fact-card">
+        <span class="num">2022</span>
+        <span class="label">Desde entonces en Ginfotel SRL</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experiencia">
+  <div class="section-head reveal">
+    <span class="section-tag">Trayectoria</span>
+    <h2>Experiencia y logros</h2>
+  </div>
+  <div class="timeline reveal">
+    <div class="t-item active">
+      <span class="when">2026 — En curso</span>
+      <h3>Aspire Leaders Program</h3>
+      <p>Admitida al programa global de liderazgo Aspire Leaders, con inicio próximo.</p>
+    </div>
+    <div class="t-item active">
+      <span class="when">Junio 2022 — Actualidad</span>
+      <h3>Asistente Administrativa · Ginfotel SRL</h3>
+      <p>Apoyo en gestión administrativa y operativa: organización de documentos, elaboración de reportes, manejo de bases de datos y coordinación de procesos internos. Soporte en seguimiento de clientes, facturación y control de información para la toma de decisiones.</p>
+    </div>
+    <div class="t-item">
+      <span class="when">Universidad de Lima</span>
+      <h3>3er puesto — Torneo de Suficiencia Económica</h3>
+      <p>Competencia académica de la Universidad de Lima orientada a evaluar el dominio de conceptos económicos aplicados.</p>
+    </div>
+    <div class="t-item">
+      <span class="when">Voluntariado</span>
+      <h3>Municipalidad de Ate · "Huellas de Esperanza" (ULima)</h3>
+      <p>Participación en programas de voluntariado, incluyendo apoyo en albergues de perros a través del programa Huellas de Esperanza de la Universidad de Lima.</p>
+    </div>
+  </div>
+</section>
+
+<section id="habilidades">
+  <div class="section-head reveal">
+    <span class="section-tag">Herramientas</span>
+    <h2>Habilidades técnicas</h2>
+  </div>
+  <div class="skill-groups reveal">
+    <div class="skill-card">
+      <h3><span class="dot" style="background:var(--fuchsia)"></span>Análisis de datos</h3>
+      <ul>
+        <li>SQL <span class="level inter">Intermedio</span></li>
+        <li>Python <span class="level inter">Intermedio</span></li>
+        <li>Power BI <span class="level inter">Intermedio</span></li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <h3><span class="dot" style="background:var(--turquoise)"></span>Ofimática y gestión</h3>
+      <ul>
+        <li>Excel <span class="level inter">Intermedio</span></li>
+        <li>Word <span class="level inter">Intermedio</span></li>
+        <li>PowerPoint <span class="level inter">Intermedio</span></li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <h3><span class="dot" style="background:var(--pink)"></span>Otros</h3>
+      <ul>
+        <li>Contabilidad <span class="level inter">Intermedio</span></li>
+        <li>Inglés <span class="level inter">Intermedio</span></li>
+        <li>Italiano <span class="level basic">Intermedio</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="certificaciones">
+  <div class="section-head reveal">
+    <span class="section-tag">Formación continua</span>
+    <h2>Certificaciones</h2>
+  </div>
+  <div class="cert-grid reveal">
+    <div class="cert"><div><h4>Bloomberg Market Concepts</h4><p>Bloomberg · Dic. 2025</p></div><span class="badge">Mercados</span></div>
+    <div class="cert"><div><h4>LSEG Workspace Certification</h4><p>LSEG · Mar. 2026</p></div><span class="badge">Mercados</span></div>
+    <div class="cert"><div><h4>Diplomado en Gestión de la Inversión Pública</h4><p>UNMSM · Mar. 2026</p></div><span class="badge">Especializado</span></div>
+    <div class="cert"><div><h4>Construcción de Indicadores Socioeconómicos</h4><p>Grupo Lambda Perú · Mar.–May. 2026</p></div><span class="badge">Investigación</span></div>
+    <div class="cert"><div><h4>Power BI</h4><p>INFOX · Mar. 2026</p></div><span class="badge">Datos</span></div>
+    <div class="cert"><div><h4>Contabilidad</h4><p>INFOX · Dic. 2025</p></div><span class="badge">Finanzas</span></div>
+    <div class="cert"><div><h4>Excel Intermedio y Básico</h4><p>UNI · 2022–2023</p></div><span class="badge">Ofimática</span></div>
+    <div class="cert"><div><h4>Word y PowerPoint Intermedio</h4><p>Corporación / Fundación Romero · Abr. 2026</p></div><span class="badge">Ofimática</span></div>
+  </div>
+</section>
+
+<section id="otros">
+  <div class="section-head reveal">
+    <span class="section-tag">Más allá del CV</span>
+    <h2>Otros intereses y aportes</h2>
+  </div>
+  <div class="other-grid reveal">
+    <div class="other-card a">
+      <h3>Formación complementaria</h3>
+      <p>Cursos en Ethical Hacking (C|EH, UNI), LaTeX, Patentes (Indecopi), Inteligencia Artificial para Startups y Data Engineering (IBM), entre otros.</p>
+    </div>
+    <div class="other-card b">
+      <h3>Compromiso social</h3>
+      <p>Voluntariados con la Municipalidad de Ate y la Universidad de Lima, incluyendo apoyo en gestión de voluntariado virtual y remoto.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <span class="section-tag">Conversemos</span>
+  <h2>¿Buscas una economista con visión de datos y de riesgo?</h2>
+  <p>Estoy abierta a prácticas y oportunidades en economía, finanzas y análisis de riesgo. Escríbeme por LinkedIn.</p>
+  <div class="contact-links">
+    <a href="https://www.linkedin.com/in/carla-cairo-473b42351" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a href="mailto:tu-correo@ejemplo.com">Enviar correo</a>
+  </div>
+</section>
+
+<footer>© 2026 Carla Elisa Cairo Fernández — Portafolio construido con foco en riesgo, datos y economía.</footer>
+
+<script>
+  // Ticker content (duplicated for seamless loop)
+  const items = [
+    ['up','SQL — Intermedio'],
+    ['flat','Python — Intermedio'],
+    ['up','Bloomberg Market Concepts'],
+    ['flat','LSEG Workspace Certification'],
+    ['up','Power BI'],
+    ['flat','Diplomado Inversión Pública — UNMSM'],
+    ['up','3er puesto — Suficiencia Económica ULima'],
+    ['flat','Aspire Leaders Program 2026'],
+  ];
+  const track = document.getElementById('tickerTrack');
+  const html = items.map(([c,t]) => `<span class="${c}">${t}</span>`).join('');
+  track.innerHTML = html + html;
+
+  // Scroll reveal
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
